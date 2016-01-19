@@ -478,7 +478,7 @@ public class GroupIterator extends CloseableIteratorIteration<BindingSet, QueryE
 			}
 			else {
 				// wildcard count
-				if (distinctBindingSet(s)) {
+				if (s.size() > 0 && distinctBindingSet(s)) {
 					count++;
 				}
 			}
@@ -519,7 +519,7 @@ public class GroupIterator extends CloseableIteratorIteration<BindingSet, QueryE
 			throws QueryEvaluationException
 		{
 			Value v = evaluate(s);
-			if (distinctValue(v)) {
+			if (v != null && distinctValue(v)) {
 				if (min == null) {
 					min = v;
 				}
@@ -550,7 +550,7 @@ public class GroupIterator extends CloseableIteratorIteration<BindingSet, QueryE
 			throws QueryEvaluationException
 		{
 			Value v = evaluate(s);
-			if (distinctValue(v)) {
+			if (v != null && distinctValue(v)) {
 				if (max == null) {
 					max = v;
 				}
@@ -699,7 +699,10 @@ public class GroupIterator extends CloseableIteratorIteration<BindingSet, QueryE
 			// we flip a coin to determine if we keep the current value or set a
 			// new value to report.
 			if (sample == null || random.nextFloat() < 0.5f) {
-				sample = evaluate(s);
+				final Value newValue = evaluate(s);
+				if (newValue != null) {
+					sample = newValue;
+				}
 			}
 		}
 
