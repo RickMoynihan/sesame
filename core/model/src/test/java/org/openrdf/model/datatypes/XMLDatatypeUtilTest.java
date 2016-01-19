@@ -16,6 +16,7 @@
  */
 package org.openrdf.model.datatypes;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -249,6 +250,15 @@ public class XMLDatatypeUtilTest {
 		"_:bar"
 	};
 
+	@Test
+	public void testNormalize() {
+		assertEquals("-1.0E-1", XMLDatatypeUtil.normalize("-0.1", XMLSchema.DOUBLE));
+		assertEquals("1.0E-1", XMLDatatypeUtil.normalize("0.1", XMLSchema.DOUBLE));
+		assertEquals("1.001E2", XMLDatatypeUtil.normalize("100.1", XMLSchema.DOUBLE));
+		assertEquals("1.011E2", XMLDatatypeUtil.normalize("101.1", XMLSchema.DOUBLE));
+		assertEquals("-1.011E2", XMLDatatypeUtil.normalize("-101.1", XMLSchema.DOUBLE));
+	}
+	
 	/**
 	 * Test method for
 	 * {@link org.openrdf.model.datatypes.XMLDatatypeUtil#isValidValue(java.lang.String, org.openrdf.model.URI)}
