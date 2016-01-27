@@ -180,6 +180,7 @@ public class SparqlSession implements HttpClientDependent {
 		this.executor = executor;
 		valueFactory = ValueFactoryImpl.getInstance();
 		params.setBooleanParameter(ClientPNames.HANDLE_REDIRECTS, true);
+		params.setLongParameter(ClientPNames.CONN_MANAGER_TIMEOUT,1);
 		CookieStore cookieStore = new BasicCookieStore();
 		httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
 		params.setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.RFC_2109);
