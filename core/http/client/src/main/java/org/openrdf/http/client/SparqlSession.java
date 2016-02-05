@@ -134,11 +134,11 @@ public class SparqlSession implements HttpClientDependent {
 
 	/**
 	 * The threshold for URL length, beyond which we use the POST method based on
-	 * the lowest common denominator for various web servers
+	 * the lowest known default in a triple store (Stardog 4083 characters).
 	 * 
 	 * @since 2.8.0
 	 */
-	public static final int MAXIMUM_URL_LENGTH = 8192;
+	public static final int MAXIMUM_URL_LENGTH = 4083;
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
